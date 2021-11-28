@@ -1,26 +1,34 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:miaged_app/SplashScreen/splashScreen.dart';
+import 'package:miaged_app/screens/splashpage_wrapper.dart';
+import 'package:miaged_app/services/authentication.dart';
+import 'package:provider/provider.dart';
 
-Future <void> main() async{
+import 'models/mock_user.dart';
+
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(
-      MyApp()
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({Key key}) : super(key: key);
+  //const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'miaged',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
-      home: SplashScreen(),
+    return StreamProvider<AppUser>.value(
+      //return StreamProvider<AppUser?>.value(
+
+      // Ecoute du stream utilisateur courant
+      value: AuthenticationService().user,
+      initialData: null,
+
+      child: MaterialApp(
+          home: SplashPageWrapper(),
+          theme: ThemeData(primarySwatch: Colors.amber)),
+
     );
   }
 }
