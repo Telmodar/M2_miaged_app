@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:miaged_app/screens/splashpage_wrapper.dart';
 import 'package:miaged_app/services/authentication.dart';
 import 'package:provider/provider.dart';
-
 import 'models/mock_user.dart';
 
-void main() async{
+ void main() async{
+
+  //Initialisation de Firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
@@ -19,16 +21,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<AppUser>.value(
-      //return StreamProvider<AppUser?>.value(
 
       // Ecoute du stream utilisateur courant
       value: AuthenticationService().user,
       initialData: null,
 
       child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           home: SplashPageWrapper(),
-          theme: ThemeData(primarySwatch: Colors.amber)),
+          theme: ThemeData(primarySwatch: Colors.blue)),
+
 
     );
+
   }
 }

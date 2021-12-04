@@ -3,6 +3,10 @@ import 'package:miaged_app/screens/basket/basketProductList_page.dart';
 import 'package:miaged_app/screens/clothes/clothesList_page.dart';
 import 'package:miaged_app/screens/profile/profile_page.dart';
 import 'package:miaged_app/services/authentication.dart';
+import 'package:provider/provider.dart';
+import 'package:miaged_app/services/database.dart';
+
+
 
 class HomePage extends StatefulWidget {
 
@@ -19,24 +23,51 @@ class _HomePageState extends State{
  
   Widget page = ClothesListPage();
   int _selectedIndex = 0;
-  Text titre = Text('Clothes List');
+  Text title = Text(
+      'Clothes List',
+       style: TextStyle(color: Colors.white70));
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+
+    // ######################## DEBUT STREAM PROVIDER (VIDEO 4 - 6:50)
+    final clothe = Provider.of<Clothe>(context);
+    if (clothe == null) throw Exception("clothe not found");
+    final database = DatabaseService(clothe.uidProduct)
+    return StreamProvider<List<Clothe>>.value(
+        initialData: [],
+        //value: DatabaseService().clothes,
+        value: database.clothes,
+        child : Scaffold(
+          //######################## fin ERROR, ERROR EVERYWHERE ! */
+
+    /*/ ######################## DEBUT STREAM PROVIDER (VIDEO 4 - 6:50)
+    final clothe = Provider.of(context);
+    if (clothe == null) throw Exception("clothe not found");
+    final database = DatabaseService("","");
+    return StreamProvider.value(
+      initialData: [],
+      //value: DatabaseService().clothes,
+        value: database.clothes,
+        child : Scaffold(
+     //######################## fin ERROR, ERROR EVERYWHERE ! */
+
+
+
+     // Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.redAccent,
         elevation: 0.0,
-        title: titre,
+        title: title,
         actions: <Widget>[
           TextButton.icon(
             onPressed: () async {
               await _auth.signOut();
             },
-            label: Text('Log Out'),
+            label: Text('Log Out', style: TextStyle(color: Colors.white70)),
             icon: Icon(Icons.logout),
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.grey),
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
             ),
           ),
         ],
@@ -60,7 +91,8 @@ class _HomePageState extends State{
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
-    );
+    ));
+    //)
   }
 
   void _onItemTapped(int index){
@@ -68,21 +100,26 @@ class _HomePageState extends State{
       _selectedIndex = index;
       switch(index){
         case 1:{
-          titre = Text("Basket");
+          title = Text("Basket");
           page = BasketProductListPage();
           break;
         }
         case 2:{
-          titre = Text('Account');
+          title = Text('Account');
           page = ProfilePage();
           break;
         }
         default:{
-          titre = Text('Clothes List');
+          title = Text(
+              'Clothes List',
+               style: TextStyle(color: Colors.white70))
+          ;
           page = ClothesListPage();
         }
       }
     });
   }
+
+  Widget streamProvider({Scaffold child}) {}
 
 }

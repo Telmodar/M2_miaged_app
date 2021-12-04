@@ -9,11 +9,13 @@ class SplashPageWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AppUser>(context);
-    //final user = Provider.of<AppUser?>(context);
     if(user==null){
+      //Non connecté
       return AuthenticationPage();
     }
-    else{
+    else
+    {
+      //Connecté
       return HomePage();
     }
   }

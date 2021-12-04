@@ -5,14 +5,18 @@ class Loading extends StatelessWidget {
   const Loading({Key key}) : super(key: key);
   //const Loading({Key? key}) : super(key: key);
 
-  @override
+
+    @override
   Widget build(BuildContext context) {
-    return Container(
+     return Container(
       color: Colors.blue,
-      child: Center(
+      child:
+      Center(
+
         child: SpinKitFadingCube(
           color: Colors.red,
           size: 60.0,
+
         ),
       ),
     );

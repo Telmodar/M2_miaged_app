@@ -18,7 +18,7 @@ class ClotheDetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.redAccent,
         elevation: 0.0,
         title: Text('Détail du produit'),
         actions: <Widget>[
@@ -46,7 +46,7 @@ class ClotheDetailPage extends StatelessWidget {
                   icon: Icon(Icons.shopping_basket),
                   label: Text('+panier'),
                   onPressed: () async{
-                    await _database.updateProduct(BasketProduct(clothe.uid,clothe.titre,clothe.taille,clothe.image,clothe.prix,1));
+                    await _database.updateProduct(BasketProduct(clothe.uid,clothe.title,clothe.size,clothe.img,clothe.price,1));
                   },
                   style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all<Color>(Colors.grey),
@@ -61,7 +61,7 @@ class ClotheDetailPage extends StatelessWidget {
         child: Column(
           children: [
              Text(
-               clothe.titre,
+               clothe.title,
                style: TextStyle(
                 fontWeight: FontWeight.bold,
                  fontSize: 20.0
@@ -69,7 +69,7 @@ class ClotheDetailPage extends StatelessWidget {
             ),
             Center(
                 child: Image(
-                  image: NetworkImage(clothe.image),
+                  image: NetworkImage(clothe.img),
                 )
             ),
             Text('Size :',
@@ -78,7 +78,7 @@ class ClotheDetailPage extends StatelessWidget {
               ),
             ),
             Text(
-                clothe.taille
+                clothe.size
             ),
             Text('Brand :',
               style: TextStyle(
@@ -86,7 +86,7 @@ class ClotheDetailPage extends StatelessWidget {
               ),
             ),
             Text(
-                clothe.marque
+                clothe.brand
             ),
             Text('Cat :',
               style: TextStyle(
@@ -94,7 +94,7 @@ class ClotheDetailPage extends StatelessWidget {
               ),
             ),
             Text(
-                clothe.categorie
+                clothe.cat
             ),
             Text('Price :',
               style: TextStyle(
@@ -102,7 +102,7 @@ class ClotheDetailPage extends StatelessWidget {
               ),
             ),
             Text(
-                clothe.prix.toString()+' €'
+                clothe.price.toString()+' €'
             )
           ],
           crossAxisAlignment: CrossAxisAlignment.start,

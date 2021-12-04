@@ -81,17 +81,17 @@ class ClotheTile extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    if(clothe.categorie==filtre || filtre=='Tous'){
+    if(clothe.cat==filtre || filtre=='Tous'){
       return Padding(
         padding: const EdgeInsets.only(top:8.0),
         child: Card(
           margin: EdgeInsets.only(top: 12.0,bottom: 6.0,left: 20.0,right: 20.0),
           child: ListTile(
-            leading: Text('Prix : ${clothe.prix}€ \nTaille : ${clothe.taille}'),
-            title: Text(clothe.titre),
+            leading: Text('Prix : ${clothe.price}€ \nTaille : ${clothe.size}'),
+            title: Text(clothe.title),
             subtitle: Container(
               child: Image(
-                image: NetworkImage(clothe.image),
+                image: NetworkImage(clothe.img),
               ),
             ),
             onTap: (){

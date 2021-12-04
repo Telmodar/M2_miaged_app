@@ -31,7 +31,7 @@ class _ProfileStateWidget extends State {
       final AuthenticationService _auth = AuthenticationService();
 
       final passwordController = TextEditingController(text: user.password);
-      final codePostalController = TextEditingController(text: user.codePostal);
+      final zipController = TextEditingController(text: user.zipCode);
       final addressController = TextEditingController(text: user.address);
       final cityController = TextEditingController(text: user.city);
 
@@ -77,8 +77,8 @@ class _ProfileStateWidget extends State {
           ),
           SizedBox(height: 10.0),
           TextFormField(
-            controller: codePostalController,
-            decoration: textInputDecoration.copyWith(labelText: 'codePostal'),
+            controller: zipController,
+            decoration: textInputDecoration.copyWith(labelText: 'ZipCode'),
             keyboardType: TextInputType.number,
           ),
           SizedBox(height: 10.0),
@@ -88,15 +88,15 @@ class _ProfileStateWidget extends State {
           ),
           SizedBox(height: 10.0),
           ElevatedButton(
-            child: Text('Valider'),
+            child: Text('Valid'),
             onPressed: () async {
               var password = passwordController.value.text;
               var address = addressController.value.text;
-              var code = codePostalController.value.text;
+              var zip = zipController.value.text;
               var city = cityController.value.text;
 
               await _auth.updatePassword(user.password,password);
-              await _database.saveUser(user.login, password, user.birthdate, address, code, city);
+              await _database.saveUser(user.login, password, user.birthdate, address, zip, city);
             },
           ),
         ],

@@ -19,9 +19,9 @@ class AppUserData{
   final String password;
   DateTime birthdate;
   final String address;
-  final String codePostal;
+  final String zipCode;
   final String city;
 
-  AppUserData(this.uid, this.login, this.password, this.birthdate, this.address, this.codePostal, this.city);
+  AppUserData(this.uid, this.login, this.password, this.birthdate, this.address, this.zipCode, this.city);
 
 }

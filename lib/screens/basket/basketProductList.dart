@@ -65,13 +65,13 @@ class BasketProductTile extends StatelessWidget{
               children:[
                 Text(product.clothe),
                 Image(
-                  image: NetworkImage(product.image),
+                  image: NetworkImage(product.img),
                 ),
                 Row(
                   children: [
                     Column(
                       children: [
-                        Text('Taille : ${product.taille}'),
+                        Text('Taille : ${product.size}'),
                         Text('Prix : ${product.prix}'),
                         Text('Quantité : ${product.quantite}'),
                       ],

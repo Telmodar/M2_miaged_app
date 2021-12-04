@@ -6,6 +6,7 @@ import 'package:miaged_app/services/database.dart';
 class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+
   AppUser _userFromFirebase(User user){
     //  AppUser? _userFromFirebase(User user){
     return user != null ? AppUser(user.uid) : null;
@@ -36,48 +37,50 @@ class AuthenticationService {
     });
   }
 
+
   // Méthode Connexion avec mail et mdp
-  Future signInWithMailAndPassword(String sMail, String sPassword) async {
+  Future signInWithMailAndPassword(String email, String password) async {
     try{
         UserCredential result =
-          await _auth.signInWithEmailAndPassword(email: sMail, password: sPassword);
+          await _auth.signInWithEmailAndPassword(email: email, password: password);
         User user = result.user;
 
         if(DatabaseService(user.uid,'').user.length==0){
-          await DatabaseService(user.uid,'').saveUser(sMail, sPassword, DateTime(1970, 1, 1), '', '', '');
+          await DatabaseService(user.uid,'').saveUser(email, password, DateTime(1970, 1, 1), '', '', '');
         }
 
         return _userFromFirebase(user);
-    } catch(e){
-      print(e.toString());
-      return null;
+      } catch(exception){
+        print(exception.toString());
+        return null;
     }
   }
 
   // Méthode Création de compte avec mail et mdp
-  Future registerInWithMailAndPassword(String cMail, String cPassword) async   {
+  Future registerInWithMailAndPassword(String name, String email, String password) async   {
 
     try{
       UserCredential result =
-        await _auth.createUserWithEmailAndPassword(email: cMail, password: cPassword);
+        await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
 
-      if(DatabaseService(user.uid,'').user.length==0){
-        await DatabaseService(user.uid,'').saveUser(cMail, cPassword, DateTime(1970, 1, 1), '', '', '');
+      if(DatabaseService(user.uid,'').user.length == 0){
+        await DatabaseService(user.uid,'').saveUser(email, password, DateTime(1970, 1, 1), name, '', '',);
       }
 
       return _userFromFirebase(user);
-    } catch(e){
-      print(e.toString());
+    } catch(exception){
+      print(exception.toString());
       return null;
     }
   }
 
+
   Future signOut() async {
     try{
       return await _auth.signOut();
-    } catch(e){
-      print(e.toString());
+    } catch(exception){
+      print(exception.toString());
       return null;
     }
   }
