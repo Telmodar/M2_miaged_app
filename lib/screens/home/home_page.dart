@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miaged_app/models/mock_clothe.dart';
 import 'package:miaged_app/screens/basket/basketProductList_page.dart';
 import 'package:miaged_app/screens/clothes/clothesList_page.dart';
 import 'package:miaged_app/screens/profile/profile_page.dart';
@@ -33,7 +34,7 @@ class _HomePageState extends State{
     // ######################## DEBUT STREAM PROVIDER (VIDEO 4 - 6:50)
     final clothe = Provider.of<Clothe>(context);
     if (clothe == null) throw Exception("clothe not found");
-    final database = DatabaseService(clothe.uidProduct)
+    final database = DatabaseService(clothe.uid,"");
     return StreamProvider<List<Clothe>>.value(
         initialData: [],
         //value: DatabaseService().clothes,
@@ -120,6 +121,6 @@ class _HomePageState extends State{
     });
   }
 
-  Widget streamProvider({Scaffold child}) {}
+  // Widget streamProvider({Scaffold child}) {}
 
 }
