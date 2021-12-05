@@ -1,4 +1,4 @@
-import 'mock_clothe.dart';
+// Structure de BASKET
 
 class BasketProduct{
 
@@ -6,8 +6,8 @@ class BasketProduct{
   final String clothe;
   final String size;
   final String img;
-  num prix;
-  num quantite;
+  num price;
+  num qte;
 
-  BasketProduct(this.uid,this.clothe, this.size,  this.img, this.prix,this.quantite);
+  BasketProduct(this.uid,this.clothe, this.size,  this.img, this.price,this.qte);
 }

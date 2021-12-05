@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:miaged_app/models/mock_user.dart';
 import 'package:miaged_app/services/database.dart';
@@ -8,19 +7,20 @@ class AuthenticationService {
 
 
   AppUser _userFromFirebase(User user){
-    //  AppUser? _userFromFirebase(User user){
     return user != null ? AppUser(user.uid) : null;
   }
 
   Stream<AppUser> get user {
-    //  Stream<AppUser?> get user {
+    //  
     return _auth.authStateChanges().map(_userFromFirebase);
-    //return _auth.authStateChanges().map(event) => _userFromFirebaseUser;
+    // map(event) => _userFromFirebaseUser;
   }
 
 
 
-  // Méthode Modification avec mail et mdp
+  // Méthode Modification du password avec mail et mdp
+  // Todo : Implémenter la méthode avec un btn dans Profile
+
   Future updatePassword(String oldPassword,String newPassword) async{
     final user = await FirebaseAuth.instance.currentUser;
     final credential = EmailAuthProvider.credential(email: user.email, password: oldPassword);
@@ -75,10 +75,10 @@ class AuthenticationService {
     }
   }
 
-
+// Méthode de Deconnexion 
   Future signOut() async {
     try{
-      return await _auth.signOut();
+      return await FirebaseAuth.instance.signOut();
     } catch(exception){
       print(exception.toString());
       return null;

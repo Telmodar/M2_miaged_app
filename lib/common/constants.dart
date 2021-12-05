@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// VALEURS COMMUNNE A L'APP
+
 const textInputDecoration = InputDecoration(
   fillColor: Colors.white70,
   filled: true,

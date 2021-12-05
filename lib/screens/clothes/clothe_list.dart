@@ -5,16 +5,18 @@ import 'package:miaged_app/screens/clothes/clothe_detail_page.dart';
 import 'package:provider/provider.dart';
 
 class ClotheList extends StatefulWidget {
-  const ClotheList({Key key}) : super(key: key);
-  //  const ClotheList({Key? key}) : super(key: key);
 
   @override
-  _ClotheListState createState() => _ClotheListState();
+  _ClotheFilter createState() => _ClotheFilter();
 }
 
-class _ClotheListState extends State<ClotheList> {
+class _ClotheFilter extends State<ClotheList> {
 
-  String _filtre = 'All filters';
+  String filter = 'All filters';
+
+// MENU DES FILTRES 
+// To do : 
+// - changer en tab bar
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class _ClotheListState extends State<ClotheList> {
             PopupMenuButton(
                 onSelected: (value){
                   setState(() {
-                    _filtre = value.toString();
+                    filter = value.toString();
                   });
                 },
                 itemBuilder:(context) => [
@@ -44,6 +46,22 @@ class _ClotheListState extends State<ClotheList> {
                     value: "Pants",
                   ),
                   PopupMenuItem(
+                    child: Text("Underware"),
+                    value: "Underware",
+                  ),
+                  PopupMenuItem(
+                    child: Text("Bags"),
+                    value: "Bags",
+                  ),
+                  PopupMenuItem(
+                    child: Text("Dresses"),
+                    value: "Dresses",
+                  ),
+                  PopupMenuItem(
+                    child: Text("For moms"),
+                    value: "For moms",
+                  ),
+                  PopupMenuItem(
                     child: Text("Shirts"),
                     value: "Shirts",
                   ),
@@ -57,55 +75,44 @@ class _ClotheListState extends State<ClotheList> {
                   )
                 ]
             ),
-            Text(_filtre),
+            Text(filter),
           ],
         ),
-        ListView.builder(
-            itemCount:clothes.length,
-            itemBuilder:(context, index){
-              return ClotheTile(clothes.elementAt(index),_filtre);
-            },
-          shrinkWrap: true,
-          physics: ScrollPhysics(),
-        )
+
+        
       ],
     );
   }
 }
 
-class ClotheTile extends StatelessWidget{
-  final Clothe clothe;
-  final String filtre;
 
-  ClotheTile(this.clothe, this.filtre);
 
-  @override
-  Widget build(BuildContext context) {
-    if(clothe.cat==filtre || filtre=='Tous'){
-      return Padding(
-        padding: const EdgeInsets.only(top:8.0),
-        child: Card(
-          margin: EdgeInsets.only(top: 12.0,bottom: 6.0,left: 20.0,right: 20.0),
-          child: ListTile(
-            leading: Text('Prix : ${clothe.price}€ \nTaille : ${clothe.size}'),
-            title: Text(clothe.title),
-            subtitle: Container(
-              child: Image(
-                image: NetworkImage(clothe.img),
-              ),
+/*
+
+
+Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: const TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.)),
+                
+              ],
             ),
-            onTap: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ClotheDetailPage(clothe: clothe))
-              );
-            },
+            title: const Text('Tabs'),
+          ),
+          body: const TabBarView(
+            children: [
+              Icon(Icons.),
+              
+            ],
           ),
         ),
-      );
-    }
-    else{
-      return Padding(padding:const EdgeInsets.only(top:0.0));
-    }
+      ),
+    );
   }
-
 }
+*/

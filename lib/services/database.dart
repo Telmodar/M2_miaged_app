@@ -13,8 +13,6 @@ class DatabaseService {
   final String uid;
   final String uidProduct;
 
-
-
   DatabaseService(this.uid, this.uidProduct);
 
   // final databaseReference  = FirebaseFirestore.instance;
@@ -42,6 +40,7 @@ class DatabaseService {
       'city':city
     });
   }
+
 
   AppUserData _userFromSnapshot(DocumentSnapshot snapshot){
 
@@ -71,6 +70,7 @@ class DatabaseService {
     );
   }
   
+
   Stream<AppUserData> get user {
     return usersCollection
         .doc(uid)
@@ -78,6 +78,10 @@ class DatabaseService {
         .map(_userFromSnapshot);
   }
 
+
+// ---------------- 
+// Todo : 
+// - utiliser le stream dan s
   Clothe _clotheFromSnapshot(DocumentSnapshot snapshot){
     var temp = snapshot.data() as Map;
     var cat = temp['cat'];
@@ -88,7 +92,7 @@ class DatabaseService {
     var price = temp['price'];
 
 
-    return Clothe(snapshot.id,
+    return Clothe(
         cat,
         size,
         title,
@@ -111,13 +115,15 @@ class DatabaseService {
         .map(_clotheListFromSnapshot);
   }
 
+  // ---------------- 
+
   Future<void> updateProduct(BasketProduct basketProduct) async{
     return await basketCollection.doc(uidProduct).set({
       'produit':basketProduct.clothe,
       'img':basketProduct.img,
       'size':basketProduct.size,
-      'price':basketProduct.prix,
-      'quantity':basketProduct.quantite
+      'price':basketProduct.price,
+      'quantity':basketProduct.qte
 
     });
   }

@@ -1,61 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:miaged_app/models/mock_clothe.dart';
 import 'package:miaged_app/screens/basket/basketProductList_page.dart';
 import 'package:miaged_app/screens/clothes/clothesList_page.dart';
 import 'package:miaged_app/screens/profile/profile_page.dart';
 import 'package:miaged_app/services/authentication.dart';
-import 'package:provider/provider.dart';
-import 'package:miaged_app/services/database.dart';
-
-
 
 class HomePage extends StatefulWidget {
-
   @override
-  _HomePageState createState(){
+  _HomePageState createState() {
     return _HomePageState();
   }
-
 }
 
-class _HomePageState extends State{
 
+// Todo : 
+// -  Utiliser le Stream<List<Clothe>> pour afficher les clothes 
+
+
+class _HomePageState extends State {
   final AuthenticationService _auth = AuthenticationService();
- 
+
   Widget page = ClothesListPage();
   int _selectedIndex = 0;
-  Text title = Text(
-      'Clothes List',
-       style: TextStyle(color: Colors.white70));
+  Text title = Text('Clothes List', style: TextStyle(color: Colors.white70));
 
   @override
   Widget build(BuildContext context) {
-
-    // ######################## DEBUT STREAM PROVIDER (VIDEO 4 - 6:50)
-    final clothe = Provider.of<Clothe>(context);
-    if (clothe == null) throw Exception("clothe not found");
-    final database = DatabaseService(clothe.uid,"");
-    return StreamProvider<List<Clothe>>.value(
-        initialData: [],
-        //value: DatabaseService().clothes,
-        value: database.clothes,
-        child : Scaffold(
-          //######################## fin ERROR, ERROR EVERYWHERE ! */
-
-    /*/ ######################## DEBUT STREAM PROVIDER (VIDEO 4 - 6:50)
-    final clothe = Provider.of(context);
-    if (clothe == null) throw Exception("clothe not found");
-    final database = DatabaseService("","");
-    return StreamProvider.value(
-      initialData: [],
-      //value: DatabaseService().clothes,
-        value: database.clothes,
-        child : Scaffold(
-     //######################## fin ERROR, ERROR EVERYWHERE ! */
-
-
-
-     // Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
         elevation: 0.0,
@@ -73,7 +43,11 @@ class _HomePageState extends State{
           ),
         ],
       ),
+
+      //
       body: page,
+      
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -85,38 +59,39 @@ class _HomePageState extends State{
             label: 'Basket',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.perm_identity),
+            icon: Icon(Icons.account_circle_rounded),
             label: 'Account',
           ),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
-    ));
+    );
     //)
   }
 
-  void _onItemTapped(int index){
-    setState((){
+  void _onItemTapped(int index) {
+    setState(() {
       _selectedIndex = index;
-      switch(index){
-        case 1:{
-          title = Text("Basket");
-          page = BasketProductListPage();
-          break;
-        }
-        case 2:{
-          title = Text('Account');
-          page = ProfilePage();
-          break;
-        }
-        default:{
-          title = Text(
-              'Clothes List',
-               style: TextStyle(color: Colors.white70))
-          ;
-          page = ClothesListPage();
-        }
+      switch (index) {
+        case 1:
+          {
+            title = Text("Basket");
+            page = BasketProductListPage();
+            break;
+          }
+        case 2:
+          {
+            title = Text('Account');
+            page = ProfilePage();
+            break;
+          }
+        default:
+          {
+            title =
+                Text('Clothes List', style: TextStyle(color: Colors.white70));
+            page = ClothesListPage();
+          }
       }
     });
   }

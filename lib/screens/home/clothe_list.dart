@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:miaged_app/models/mock_clothe.dart';
-import 'package:miaged_app/services/database.dart';
 
 
 
@@ -9,10 +8,10 @@ import 'package:miaged_app/services/database.dart';
 class ClotheList extends StatefulWidget {
 
   @override
-  _ClotheListState createState() => _ClotheListState();
+  _ClotheFilter createState() => _ClotheFilter();
 }
 
-class _ClotheListState extends State<ClotheList> {
+class _ClotheFilter extends State<ClotheList> {
   @override
   Widget build(BuildContext context) {
     final clothes = Provider.of<List<Clothe>>(context) ?? [];
@@ -35,10 +34,10 @@ class ClotheTile extends StatelessWidget{
     return Padding(
       padding: const EdgeInsets.only(top:8.0),
       child: Card(
-        margin: EdgeInsets.only(top:12.0, bottom:6.0, left: 20.0, right: 20.0),
+        margin: EdgeInsets.only(),
         child: ListTile(
-          title: Text(clothe.cat),
-            subtitle: Text(clothe.size),
+          title: Text(""),
+            subtitle: Text(""),
         )
       )
     );
